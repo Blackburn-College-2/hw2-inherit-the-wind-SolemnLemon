@@ -21,8 +21,6 @@ public class Runner {
     public static void main(String[] args) {
         // TODO code application logic here
         WeatherOrganizer weatherBot = new WeatherOrganizer();
-
-        System.out.println(weatherBot.get10Day()[0].getMorningTemp()+" mid day:"+weatherBot.get10Day()[0].getMiddayTemp());
     }
 
 }

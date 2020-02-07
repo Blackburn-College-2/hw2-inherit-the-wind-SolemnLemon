@@ -6,40 +6,44 @@
 package hw02.cummings.pkg212;
 
 /**
- *Represents a single day holds it's morning and night temperatures 
+ * Represents a single day holds it's morning and night temperatures
+ *
  * @author sunbe
  */
 public class Day {
- private Measurement morningTemp;
-   private Measurement middayTemp;
-   
-   public Day(Measurement morningTemp,Measurement middayTemp /**WeatherOrganizer weatherBot*/){
-   this.morningTemp=morningTemp;
-   this.middayTemp=middayTemp;
- // this.middayTemp=weatherBot.calculateMornToMid(weatherBot.getActiveDay());
-   }
-  
 
-   //getters and setters
-    public Measurement getMorningTemp() {
+    private Tempeture morningTemp;
+    private Tempeture middayTemp;
+
+    public Day(Tempeture morningTemp, Tempeture middayTemp) {
+        this.morningTemp = morningTemp;
+        this.middayTemp = middayTemp;
+        // this.middayTemp=weatherBot.calculateMornToMid(weatherBot.getActiveDay());
+    }
+
+    //getters and setters
+    public Tempeture getMorningTemp() {
         return morningTemp;
     }
 
-    public Measurement getMiddayTemp() {
+    public Tempeture getMiddayTemp() {
         return this.middayTemp;
     }
 
-    public void setMorningTemp(Measurement morningTemp) {
+    public void setMorningTemp(Tempeture morningTemp) {
         this.morningTemp = morningTemp;
     }
 
-    public void setMiddayTemp(Measurement middayTemp) {
+    public void setMiddayTemp(Tempeture middayTemp) {
         this.middayTemp = middayTemp;
     }
-  public String giveWeather(){
-    String s=" This morning it will be "+getMorningTemp()+ " and " +getMiddayTemp();
-  return s;
-  }
-    
-    
+
+    public String giveWeather() {//i think it said that when printing it should only print ints
+        String s = " This morning it will be " + getMorningTemp().getIntValue() +getMorningTemp().getUnits()+" "
+                + getMorningTemp().toCelsius().getIntValue()+getMorningTemp().toCelsius().getUnits()
+                + " and " + getMiddayTemp().getIntValue() + " " +getMiddayTemp().getUnits()
+                + getMiddayTemp().toCelsius().getIntValue()+" "+getMiddayTemp().toCelsius().getUnits();
+        return s;
+    }
+
 }

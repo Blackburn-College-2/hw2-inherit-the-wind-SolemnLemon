@@ -10,7 +10,7 @@ package hw02.cummings.pkg212;
  * @author sunbe
  */
 public class Measurement {
-  
+
     double value = 0.0;
     String units = "";
     String valueWithUnits;
@@ -18,14 +18,30 @@ public class Measurement {
     public Measurement(double value, String units) {
         this.value = value;
         this.units = units;
-        valueWithUnits=toString();
+        valueWithUnits = toString();
     }
-    
-@Override
+
+    @Override
     public String toString() {
- 
+
         String s = String.valueOf(getValue()) + " " + getUnits();
         return s;
+    }
+
+    /**
+     * uses conversion equation found at
+     * https://www.inchcalculator.com/convert/fahrenheit-to-celsius/
+     *
+     * @param fahrenheit temperature value in fahrenheit passed in
+     * @return temperature value in celsius
+     */
+
+//To Implement! kph to mph method
+    
+    
+    public int getIntValue() {
+
+        return (int) Math.round(this.getValue());
     }
 
     public double getValue() {
@@ -43,7 +59,5 @@ public class Measurement {
     public void setUnits(String units) {
         this.units = units;
     }
-
-
 
 }

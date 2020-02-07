@@ -19,7 +19,7 @@ public class WeatherOrganizer {
     public Random random = new Random();
 
     private Day[] days = new Day[9];
-    private Measurement startTemp;
+    private Tempeture startTemp;
 
     private double mornToMidModifier = 0.0;
     private double midToMornModifier = 0.0;
@@ -41,10 +41,9 @@ public class WeatherOrganizer {
      * @param activeDay current day being set
      * @return midday temp
      */
-    public Measurement calculateMornToMid(Measurement morn) {
+    public Tempeture calculateMornToMid(Tempeture morn) {
 
-     
-        return new Measurement(morn.getValue() + getMornToMidModifier(), "F");
+        return new Tempeture(morn.getValue() + getMornToMidModifier(), "F");
 
     }
 
@@ -55,9 +54,9 @@ public class WeatherOrganizer {
      * @param activeDay current day being set
      * @return morning temp
      */
-    public Measurement calculateMidtoMorn(Measurement mid) {
+    public Tempeture calculateMidtoMorn(Tempeture mid) {
         //only works on not day 1
-        return new Measurement(mid.getValue() + getMidToMornModifier(), " F");
+        return new Tempeture(mid.getValue() + getMidToMornModifier(), " F");
 
     }
 
@@ -66,34 +65,30 @@ public class WeatherOrganizer {
      */
     public void calculate10Day() {
         int activeDay = 0;
+        
+
         System.out.println(getStartTemp().toString());
         setDay(activeDay, new Day(getStartTemp(), calculateMornToMid(getStartTemp())));
-activeDay++;
+        activeDay++;
         while (activeDay < get10Day().length) {
-            
-            Measurement mornTemp = calculateMidtoMorn(get10Day()[activeDay-1].getMiddayTemp());
-            Measurement midTemp = calculateMornToMid(mornTemp);
+
+            Tempeture mornTemp = calculateMidtoMorn(get10Day()[activeDay - 1].getMiddayTemp());
+            Tempeture midTemp = calculateMornToMid(mornTemp);
 
             setDay(activeDay, new Day(mornTemp, midTemp));
-            
-System.out.println("it is day "+activeDay+ " "+get10Day()[activeDay].giveWeather());
+
+            System.out.println("Day: " + activeDay + " " + get10Day()[activeDay].giveWeather());
             activeDay++;
         }
     }
 
-    /**
-     * uses conversion equation found at
-     * https://www.inchcalculator.com/convert/fahrenheit-to-celsius/
-     *
-     * @param fahrenheit temperature value in fahrenheit passed in
-     * @return temperature value in celsius
-     */
-    public Measurement toCelsius(Measurement fahrenheit) {
-        return new Measurement((fahrenheit.getValue() - 32) * 5 / 9, " C");
+    public void manageConditionals(){
+    Wind windConditions=new Wind(this);
+    
     }
-
+    
     public void createStartTemp() {
-        setStartTemp(new Measurement(random.nextInt(20) + 40, " F"));
+        setStartTemp(new Tempeture((double)random.nextInt(20) + 40, " F"));
 
     }
 
@@ -102,11 +97,11 @@ System.out.println("it is day "+activeDay+ " "+get10Day()[activeDay].giveWeather
      *
      * @param startTemp
      */
-    public void setStartTemp(Measurement startTemp) {
+    public void setStartTemp(Tempeture startTemp) {
         this.startTemp = startTemp;
     }
 
-    public Measurement getStartTemp() {
+    public Tempeture getStartTemp() {
         return this.startTemp;
     }
 
