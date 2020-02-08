@@ -8,7 +8,8 @@ package hw02.cummings.pkg212;
 import java.util.Random;
 
 /**
- *
+ *determines cloud level at random
+ * and can calculate how much it changes the temp
  * @author sunbe
  */
 public class Cloud {
@@ -16,22 +17,28 @@ public class Cloud {
     public Random random = new Random();
 
     String cloudLevel;
-public Cloud(){
+    double conditional = 0.0;
 
-calculateCloudLevel();
-}
+    int cloudLevelInt;
 
+    public Cloud() {
 
-/**
- * chooses cloud level at random and sets it to the attribute
- */
+        calculateCloudLevel();
+
+    }
+
+    /**
+     * chooses cloud level at random and sets it to the attribute
+     */
     public void calculateCloudLevel() {
         String[] levels = new String[4];
         levels[0] = "None";
         levels[1] = "Light";
         levels[2] = "Medium";
         levels[3] = "Heavy";
-        setCloudLevel(levels[random.nextInt(3)]);
+
+        setCloudLevelInt(random.nextInt(3));
+        setCloudLevel(levels[getCloudLevelInt()]);
 
     }
 
@@ -41,5 +48,27 @@ calculateCloudLevel();
 
     public void setCloudLevel(String cloudLevel) {
         this.cloudLevel = cloudLevel;
+    }
+
+    public double calculateConditional() {
+        if (getCloudLevelInt() == 0) {
+            //make sure to add not subtract cloud conditional
+            return 6.0;
+        } else if (getCloudLevelInt() == 1) {
+            return 3.0;
+        } else if (getCloudLevelInt() == 2) {
+            return -3.0;
+        } else {
+            return -14.0;
+        }
+
+    }
+
+    public int getCloudLevelInt() {
+        return cloudLevelInt;
+    }
+
+    public void setCloudLevelInt(int cloudLevelInt) {
+        this.cloudLevelInt = cloudLevelInt;
     }
 }

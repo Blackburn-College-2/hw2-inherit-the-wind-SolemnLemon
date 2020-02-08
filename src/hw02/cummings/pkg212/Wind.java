@@ -9,7 +9,7 @@ import java.util.Random;
 
 /**
  * determines wind speed and direction randomly
- *
+ *and can calculate how much it changes the temp
  * @author sunbe
  */
 public class Wind {
@@ -17,14 +17,12 @@ public class Wind {
     public Random random = new Random();
 
     char direction;
-    Measurement speed;
+    Speed speed;
 
-    WeatherOrganizer weatherBot;
+    public Wind() {
+        calculateDirection();
+        calculateSpeed();
 
-    public Wind(WeatherOrganizer weatherBot) {
-        //this.direction=direction;
-        //this.speed=speed;
-        this.weatherBot = weatherBot;
     }
 
     public void calculateDirection() {
@@ -36,17 +34,28 @@ public class Wind {
         dirChart[3] = 'W';
         setDirection(dirChart[random.nextInt(3)]);
     }
-    public void calculateSpeed(){
-    
-    setSpeed (new Measurement((double)random.nextInt(20),"kph"));
-    
+
+    public void calculateSpeed() {
+
+        setSpeed(new Speed((double) random.nextInt(20), "kph"));
+
+    }
+
+    public double calculateConditional() {
+        if (getDirection() == 'N') {
+            return getSpeed().getValue() * (-.5);
+        } else if (getDirection() == 'S') {
+            return getSpeed().getValue() * (.65);
+        }
+return 0.0;
     }
 
     public char getDirection() {
         return direction;
     }
 
-    public Measurement getSpeed() {
+    public Speed getSpeed() {
+  
         return speed;
     }
 
@@ -54,7 +63,7 @@ public class Wind {
         this.direction = direction;
     }
 
-    public void setSpeed(Measurement speed) {
+    public void setSpeed(Speed speed) {
         this.speed = speed;
     }
 }

@@ -8,7 +8,8 @@ package hw02.cummings.pkg212;
 import java.util.Random;
 
 /**
- *
+ *Estimated project time: 6 hours
+ * actual project time
  * @author sunbe
  */
 public class Runner {

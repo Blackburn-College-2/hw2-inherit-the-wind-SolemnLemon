@@ -16,7 +16,8 @@ public class Speed extends Measurement{
   }
     
     public Speed toMPH() {
-        return new Speed(getValue()/1.609,"mph");
+    
+        return new Speed(this.getValue()/1.609," mph");
     }
     
     

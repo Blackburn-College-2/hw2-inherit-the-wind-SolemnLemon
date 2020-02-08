@@ -24,7 +24,7 @@ public class Measurement {
     @Override
     public String toString() {
 
-        String s = String.valueOf(getValue()) + " " + getUnits();
+        String s = (getValue()) + " " + getUnits();
         return s;
     }
 

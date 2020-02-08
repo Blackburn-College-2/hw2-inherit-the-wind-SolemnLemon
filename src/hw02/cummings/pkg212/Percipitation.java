@@ -8,7 +8,7 @@ package hw02.cummings.pkg212;
 import java.util.Random;
 
 /**
- *
+ *accounts for both rain and snow as both inherit from it gives them generation methods
  * @author sunbe
  */
 public abstract class Percipitation {
@@ -16,11 +16,18 @@ public abstract class Percipitation {
     //do work after midday is calculated
 Random random=new Random();
     
+public Percipitation(){
+calculateAmount();
+}
+
+    
     Length amount;
     public void calculateAmount(){
-    setAmount(new Length((double)random.nextInt(7)," In"));
+    setAmount(new Length((double)random.nextInt(8)," CM"));
     
     }
+    
+    public abstract String getPercipType();
         public Length getAmount() {
         return amount;
     }

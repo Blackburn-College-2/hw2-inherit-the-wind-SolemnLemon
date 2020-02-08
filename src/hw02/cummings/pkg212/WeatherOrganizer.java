@@ -10,7 +10,7 @@ import java.util.Random;
 /**
  * creates base temp and catalogs changes between days and manage conditionals
  * conditionals are small changes to temp due to randomly determined weather
- * conditions
+ * 
  *
  * @author sunbe
  */
@@ -18,7 +18,7 @@ public class WeatherOrganizer {
 
     public Random random = new Random();
 
-    private Day[] days = new Day[9];
+    private Day[] days = new Day[10];
     private Tempeture startTemp;
 
     private double mornToMidModifier = 0.0;
@@ -43,7 +43,7 @@ public class WeatherOrganizer {
      */
     public Tempeture calculateMornToMid(Tempeture morn) {
 
-        return new Tempeture(morn.getValue() + getMornToMidModifier(), "F");
+        return new Tempeture(morn.getValue() + getMornToMidModifier(), "C");
 
     }
 
@@ -56,39 +56,55 @@ public class WeatherOrganizer {
      */
     public Tempeture calculateMidtoMorn(Tempeture mid) {
         //only works on not day 1
-        return new Tempeture(mid.getValue() + getMidToMornModifier(), " F");
+        return new Tempeture(mid.getValue() + getMidToMornModifier(), " C");
 
     }
 
     /**
      * this is the thicc boi that does everything really
+     * 
      */
     public void calculate10Day() {
         int activeDay = 0;
-        
 
+//first bit of this generates the first day since it has different generation methods than subsequent days
         System.out.println(getStartTemp().toString());
-        setDay(activeDay, new Day(getStartTemp(), calculateMornToMid(getStartTemp())));
+
+        //need tot get conditionals done before the day
+        setDay(activeDay, new Day());
+        get10Day()[activeDay].generateMiddayWeather();//generates all weather patterns on the active day
+
+        setMornToMidModifier(get10Day()[activeDay].getCloudLevel().calculateConditional());
+
+        get10Day()[activeDay].setMorningTemp(getStartTemp());
+        get10Day()[activeDay].setMiddayTemp(calculateMornToMid(getStartTemp()));
+
+        get10Day()[activeDay].generateNextWeather();
+
+        System.out.println("Day: " + (activeDay+1) + " " + get10Day()[activeDay].giveWeather());
+System.out.print(get10Day()[activeDay].getWind().getSpeed().toMPH().getIntValue()+
+                    " MPH" +"\n"+"Percipitation: "+get10Day()[activeDay].getPercip().getPercipType()+
+                        " "+get10Day()[activeDay].getPercip().getAmount()+"\n"+"\n");
         activeDay++;
         while (activeDay < get10Day().length) {
+            setDay(activeDay, new Day());//creates the day  that the iteration of the loop will work off 
+            get10Day()[activeDay].generateMiddayWeather();//generates all weather patterns on the active day
 
-            Tempeture mornTemp = calculateMidtoMorn(get10Day()[activeDay - 1].getMiddayTemp());
-            Tempeture midTemp = calculateMornToMid(mornTemp);
+            setMornToMidModifier(get10Day()[activeDay].getCloudLevel().calculateConditional());
+            get10Day()[activeDay].setMorningTemp(calculateMidtoMorn(get10Day()[activeDay - 1].getMiddayTemp()));
+            get10Day()[activeDay].setMiddayTemp(calculateMornToMid(get10Day()[activeDay].getMorningTemp()));
+            get10Day()[activeDay].generateNextWeather();
 
-            setDay(activeDay, new Day(mornTemp, midTemp));
-
-            System.out.println("Day: " + activeDay + " " + get10Day()[activeDay].giveWeather());
+            System.out.println("Day: " + (activeDay+1)+ " " + get10Day()[activeDay].giveWeather());
+            System.out.print(get10Day()[activeDay].getWind().getSpeed().toMPH().getIntValue()+
+                    " MPH" +"\n"+"Percipitation: "+get10Day()[activeDay].getPercip().getPercipType()+
+                        " "+get10Day()[activeDay].getPercip().getAmount().getIntValue()+get10Day()[activeDay].getPercip().getAmount().getUnits()+"\n"+"\n");
             activeDay++;
         }
     }
 
-    public void manageConditionals(){
-    Wind windConditions=new Wind(this);
-    
-    }
-    
     public void createStartTemp() {
-        setStartTemp(new Tempeture((double)random.nextInt(20) + 40, " F"));
+        setStartTemp(new Tempeture((double) random.nextInt(30) - 10, " C"));
 
     }
 

@@ -15,7 +15,7 @@ public class Tempeture extends Measurement {
   super(value,Unit);
       
   }
-    public Tempeture toCelsius() {
-        return new Tempeture((this.getValue() - 32) * 5 / 9, " C");
+    public Tempeture toFahrenheit() {
+        return new Tempeture((this.getValue()*9/5)+32, " F");
     }
 }
